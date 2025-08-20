@@ -72,6 +72,6 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(PORT, HOST, () => {
-  console.log(`✅ Server running at https://${HOST}:${PORT}`);
+server.listen(PORT, () => {
+  console.log(`✅ Server running at https://:${PORT}`);
 });
