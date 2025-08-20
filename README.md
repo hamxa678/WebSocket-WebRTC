@@ -49,3 +49,9 @@ npm run dev
 - Persist messages, store chat history
 - HTTPS + secure TURN server (coturn)
 # WebSocket-WebRTC
+
+
+# Test: 
+```bash
+https://websocket-webrtc-hksm.onrender.com
+```
