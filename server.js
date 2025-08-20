@@ -1,22 +1,16 @@
-// server.js (text chat + WebRTC signaling)
+// server.js (Render-ready)
 const express = require('express');
-const https = require('https');
-const fs = require('fs');
+const http = require('http');        // <-- use HTTP
 const { Server } = require('socket.io');
 
 const app = express();
-const server = https.createServer({
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
-}, app);
+const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*" } });
 
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST || '0.0.0.0';
 
-app.use(express.static('public'));
+app.use(express.static('public'));  // serve frontend files
 
-// Track users by socket id
 const users = new Map();
 
 io.on('connection', (socket) => {
@@ -46,19 +40,11 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('typing', { from: user.username, isTyping: !!isTyping });
   });
 
-  // --- WebRTC signaling events ---
-  socket.on('webrtc-offer', (offer) => {
-    socket.broadcast.emit('webrtc-offer', { from: socket.id, offer });
-  });
-  socket.on('webrtc-answer', (answer) => {
-    socket.broadcast.emit('webrtc-answer', { from: socket.id, answer });
-  });
-  socket.on('webrtc-candidate', (candidate) => {
-    socket.broadcast.emit('webrtc-candidate', { from: socket.id, candidate });
-  });
-  socket.on('webrtc-end', () => {
-    socket.broadcast.emit('webrtc-end', { from: socket.id });
-  });
+  // WebRTC signaling
+  socket.on('webrtc-offer', (offer) => socket.broadcast.emit('webrtc-offer', { from: socket.id, offer }));
+  socket.on('webrtc-answer', (answer) => socket.broadcast.emit('webrtc-answer', { from: socket.id, answer }));
+  socket.on('webrtc-candidate', (candidate) => socket.broadcast.emit('webrtc-candidate', { from: socket.id, candidate }));
+  socket.on('webrtc-end', () => socket.broadcast.emit('webrtc-end', { from: socket.id }));
 
   socket.on('disconnect', () => {
     const user = users.get(socket.id);
@@ -72,6 +58,4 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`✅ Server running at https://:${PORT}`);
-});
+server.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
