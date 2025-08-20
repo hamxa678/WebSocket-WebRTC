@@ -1,6 +1,6 @@
 # WebSocket + WebRTC Chat
 
-Real-time text chat (Socket.IO) + 1:1 video calling (WebRTC).
+Giving my oldest knowladge a recall: Real-time text chat (Socket.IO) + 1:1 video calling (WebRTC).
 
 ## 🚀 Quick Start
 
