@@ -1,0 +1,111 @@
+:root {
+  --bg: #0f172a;
+  --panel: #111827;
+  --muted: #94a3b8;
+  --text: #e5e7eb;
+  --accent: #60a5fa;
+  --accent-2: #a78bfa;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  background: radial-gradient(1200px 600px at 80% -10%, #1f2937 0%, var(--bg) 50%);
+  color: var(--text);
+  min-height: 100vh;
+}
+.app { max-width: 1100px; margin: 0 auto; padding: 1rem; }
+header { display: flex; align-items: center; justify-content: space-between; }
+h1 { margin: 0; font-size: 1.25rem; letter-spacing: .3px; }
+#me { color: var(--muted); font-size: .9rem; }
+
+main { display: grid; grid-template-columns: 260px 1fr; gap: 1rem; margin-top: 1rem; }
+aside {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: .75rem;
+  height: calc(100vh - 160px);
+  overflow: auto;
+}
+aside h2 { margin: .25rem 0 .5rem; font-size: 1rem; color: var(--muted); }
+#users { list-style: none; padding: 0; margin: 0 0 .5rem 0; }
+#users li { padding: .5rem .6rem; border-radius: 10px; }
+#users li.me { background: rgba(96,165,250,.15); }
+.video-controls { display: grid; gap: .4rem; margin-top: .5rem; }
+.video-controls .toggles { display: grid; gap: .4rem; grid-template-columns: 1fr 1fr; }
+.hint { color: var(--muted); }
+
+.chat {
+  display: grid; grid-template-rows: auto 1fr auto auto;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  height: calc(100vh - 160px);
+  overflow: hidden;
+}
+.videos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .5rem;
+  padding: .5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.04));
+}
+video {
+  width: 100%;
+  background: #0b1220;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  min-height: 180px;
+}
+#messages {
+  list-style: none; margin: 0; padding: 1rem; overflow-y: auto;
+  display: flex; flex-direction: column; gap: .5rem;
+}
+#messages li {
+  max-width: 70%;
+  padding: .6rem .75rem;
+  border-radius: 12px;
+  background: #0b1220;
+  border: 1px solid rgba(255,255,255,0.06);
+  word-wrap: break-word;
+}
+#messages li.me { align-self: flex-end; background: rgba(96,165,250,.15); border-color: rgba(96,165,250,.35); }
+#messages li .meta { font-size: .75rem; color: var(--muted); margin-bottom: .25rem; }
+#messages li.system { align-self: center; background: transparent; border: none; color: var(--muted); font-size: .85rem; }
+
+#typing { padding: 0 1rem .5rem; height: 1.2rem; font-size: .85rem; color: var(--muted); }
+
+#form {
+  display: flex; gap: .5rem; padding: .5rem; border-top: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.04));
+}
+#input {
+  flex: 1; padding: .7rem .9rem; font-size: 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.12);
+  background: #0b1220; color: var(--text);
+}
+button {
+  padding: .7rem 1rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.18);
+  background: linear-gradient(180deg, rgba(96,165,250,.25), rgba(167,139,250,.25));
+  color: white; cursor: pointer; font-weight: 600;
+}
+button:disabled { opacity: .6; cursor: not-allowed; }
+button:hover:not(:disabled) { filter: brightness(1.1); }
+
+.modal {
+  position: fixed; inset: 0; display: grid; place-items: center; background: rgba(0,0,0,.5);
+}
+.modal.hidden { display: none; }
+.modal-box {
+  background: #0b1220; border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 1rem; width: 320px;
+}
+.modal-box h3 { margin: 0 0 .75rem; }
+.modal-box input { width: 100%; padding: .6rem .7rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.12); background: #0b1220; color: var(--text); }
+.modal-box button { width: 100%; margin-top: .6rem; }
+@media (max-width: 900px) {
+  main { grid-template-columns: 1fr; }
+  aside { height: auto; }
+  .chat { height: auto; min-height: 80vh; }
+  .videos { grid-template-columns: 1fr; }
+}

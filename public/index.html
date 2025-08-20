@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WebSocket + WebRTC Chat</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>💬 WebSocket + 🎥 WebRTC Chat</h1>
+      <div id="me"></div>
+    </header>
+
+    <main>
+      <aside>
+        <h2>Online</h2>
+        <ul id="users"></ul>
+
+        <div class="video-controls">
+          <button id="btnStart">Start Call</button>
+          <button id="btnHangup" disabled>Hang Up</button>
+          <div class="toggles">
+            <button id="btnMute" disabled>Mute</button>
+            <button id="btnCam" disabled>Camera Off</button>
+          </div>
+          <small class="hint">Open this page on two devices on the same Wi‑Fi and press “Start Call”.</small>
+        </div>
+      </aside>
+
+      <section class="chat">
+        <div class="videos">
+          <video id="localVideo" autoplay muted playsinline></video>
+          <video id="remoteVideo" autoplay playsinline></video>
+        </div>
+        <ul id="messages"></ul>
+        <div id="typing"></div>
+        <form id="form">
+          <input id="input" autocomplete="off" placeholder="Type a message..." maxlength="2000" />
+          <button type="submit">Send</button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal" id="username-modal">
+    <div class="modal-box">
+      <h3>Pick a username</h3>
+      <form id="username-form">
+        <input id="username" placeholder="e.g. Alex" maxlength="24" required />
+        <button type="submit">Join</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/client.js" type="module"></script>
+</body>
+</html>
